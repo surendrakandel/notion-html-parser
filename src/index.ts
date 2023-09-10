@@ -8,8 +8,7 @@ export interface Config {
 }
 
 export class NotionHTMLParser {
-    private notionClient: Client;
-
+    notionClient: Client;
     constructor(private config: Config) {
         if (!config.apiKey || !config.pageId || config.apiKey.length < 10 || config.pageId.length < 10) {
             throw new Error("apiKey or pageId is not defined");
