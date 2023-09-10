@@ -1,0 +1,58 @@
+{
+  "name": "notion-html-parser",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "./build",
+  "types": "./build/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
+    "prebuild": "npm run clean",
+    "clean": "rm -rf ./build",
+    "test": "jest",
+    "test:watch": "jest -w"
+  },
+  "keywords": [
+    "notion-to-html",
+    "notion-to-md",
+    "notion-to-clouldflare",
+    "notion-direct-deploy",
+    "notion-sveltekit",
+    "notion",
+    "markdown",
+    "md",
+    "notion",
+    "notion-api",
+    "notion-html-parser",
+    "notion2md",
+    "notion2html"
+  ],
+  "author": "Surendra kandel",
+  "license": "ISC",
+  "files": [
+    "build/**"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surendrakandel/notion-html-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/surendrakandel/notion-html-parser/issues"
+  },
+  "homepage": "https://github.com/surendrakandel/notion-html-parser#readme",
+  "description": "convert notion pages, block and list of blocks to markdown (supports nesting)",
+  "devDependencies": {
+    "@notionhq/client": "^1.0.1",
+    "@types/jest": "^27.4.1",
+    "@types/markdown-table": "^2.0.0",
+    "jest": "^27.4.7",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "markdown-table": "^2.0.0",
+    "marked": "^9.0.0"
+  }
+}
