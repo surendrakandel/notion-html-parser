@@ -7,33 +7,28 @@ export interface Config {
     pageId: string;
 }
 
-export class NotionHTMLParser {
-    notionClient: Client;
-    constructor(private config: Config) {
-        if (!config.apiKey || !config.pageId || config.apiKey.length < 10 || config.pageId.length < 10) {
-            throw new Error("apiKey or pageId is not defined");
+export async function notionHtmlParser(config: Config): Promise<string> {
+    if (!config.apiKey || !config.pageId || config.apiKey.length < 10 || config.pageId.length < 10) {
+        throw new Error("apiKey or pageId is not defined");
+    }
+
+    const notionClient = new Client({
+        auth: config.apiKey,
+    });
+
+    const n2m = new notionParser.NotionToMarkdown({ 
+        notionClient: notionClient, 
+        config: {
+            parseChildPages: true,
         }
+    });
 
-        this.notionClient = new Client({
-            auth: config.apiKey,
-        });
-    }
+    const { results } = await notionClient.blocks.children.list({
+        block_id: config.pageId,
+    });
 
-    async getHTML(): Promise<string> {
-        const n2m = new notionParser.NotionToMarkdown({ 
-            notionClient: this.notionClient, 
-            config: {
-                parseChildPages: true,
-            }
-        });
-
-        const { results } = await this.notionClient.blocks.children.list({
-            block_id: this.config.pageId,
-        });
-
-        const x = await n2m.blocksToMarkdown(results);
-        let markDownString = n2m.toMarkdownString(x);
-        
-        return marked.parse(markDownString.parent);
-    }
+    const x = await n2m.blocksToMarkdown(results);
+    let markDownString = n2m.toMarkdownString(x);
+    
+    return marked.parse(markDownString.parent);
 }
