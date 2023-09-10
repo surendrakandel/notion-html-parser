@@ -1,10 +1,11 @@
-const getHtml = require("./build/index");
+const { NotionHTMLParser } = require("./build/index");
 
 
 (async () => {
-    let data = await getHtml.default({
+    let parser =  new NotionHTMLParser({
         apiKey: "secret_kyymFPGNFemfZ46rQ5VfsVIf24JHOX6yWjM1J762PJ4",
         pageId: "15137e82c6ad4749acd75e17ce5cf14f",
     });
-    console.log(data)
+    const html = await parser.getHTML();
+    console.log(html);
   })();
